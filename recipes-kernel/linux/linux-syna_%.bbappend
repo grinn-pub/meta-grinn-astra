@@ -1,14 +1,18 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-DT_NAME = "grinn-astra-1680-evb"
+DTS_NAME = "grinn-astra-1680-evb"
+DTSI_NAME = "grinn-astra-1680"
 DT_DIR = "${S}/arch/arm64/boot/dts/synaptics"
 
 SRC_URI += " \
-	file://${DT_NAME}.dts \
+    file://eth.cfg \
+	file://${DTS_NAME}.dts \
+	file://${DTSI_NAME}.dtsi \
 "
 
 do_compile:prepend() {
-	cp ${WORKDIR}/${DT_NAME}.dts ${DT_DIR}/
+	cp ${WORKDIR}/${DTS_NAME}.dts ${DT_DIR}/
+	cp ${WORKDIR}/${DTSI_NAME}.dtsi ${DT_DIR}/
 }
 
 
