@@ -30,7 +30,36 @@
 	model = "synaptics dolphin rdk";
 	compatible = "syna,dolphin-evk", "syna,dolphin";
 
+	leds {
+		compatible = "gpio-leds";
+		status = "okay";
+
+        ir_led_en1: led0 {
+			gpios = <&portb 5 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+			pinctrl-0 = <&ir_led_en1_pmux>;
+		};
+
+        ir_led_en2: led1 {
+			gpios = <&portb 4 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+			pinctrl-0 = <&ir_led_en2_pmux>;
+		};
+	};
 };
+
+&pinctrl {
+	ir_led_en1_pmux: ir-led-en1-pmux {
+		groups = "STS1_SD";
+		function = "gpio";
+	};
+
+	ir_led_en2_pmux: ir-led-en2-pmux {
+		groups = "STS1_VALD";
+		function = "gpio";
+	};
+};
+
 
 &mdio0 {
 	phy0: ethernet-phy@0 {
