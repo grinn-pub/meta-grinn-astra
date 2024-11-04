@@ -89,15 +89,6 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 
-		vmmc_sdhci1: vmmc_sdhci1 {
-			compatible = "regulator-fixed";
-			regulator-min-microvolt = <3300000>;
-			regulator-max-microvolt = <3300000>;
-			regulator-name = "vmmc_sdio";
-			enable-active-high;
-			gpio = <&portb 12 GPIO_ACTIVE_HIGH>;
-		};
-
 		reg_usb0_vbus: usb0_vbus {
 			compatible = "regulator-fixed";
 			regulator-name = "usb0_vbus";
@@ -208,17 +199,6 @@
 		groups = "SPI1_SS2n", "SPI1_SS3n";
 		function = "tw1b";
 		drive-strength = <3>;
-	};
-
-	sdhci1_pmux: sdhci1-pmux {
-		groups = "SDIO_CDn";
-		function = "sdio";
-		drive-strength = <7>;
-	};
-
-	sdhci1_gpio_pmux: sdhci1-gpio-pmux {
-		groups = "SDIO_WP";
-		function = "gpio";
 	};
 
 	hdmitx5v_pmux: hdmitx5v-pmux {
@@ -337,19 +317,6 @@
 	dll-calibration;
 	pad-sp = /bits/ 8 <14>;
 	pad-sn = /bits/ 8 <14>;
-};
-
-&sdhci1 {
-	status = "okay";
-	pinctrl-0 = <&sdhci1_pmux>, <&sdhci1_gpio_pmux>;
-	pinctrl-names = "default";
-	no-sdio;
-	no-mmc;
-	disable-wp;
-	sdclkdl-dc = /bits/ 8 <75>;
-	pad-sp = /bits/ 8 <4>;
-	pad-sn = /bits/ 8 <4>;
-	vmmc-supply = <&vmmc_sdhci1>;
 };
 
 &pcie_phy0 {

@@ -48,7 +48,23 @@
 	};
 };
 
+&regulators {
+    usb3_vbus: usb3_vbus {
+        compatible = "regulator-fixed";
+        regulator-min-microvolt = <5000000>;
+        regulator-max-microvolt = <5000000>;
+        regulator-name = "usb3-vbus";
+        enable-active-high;
+        gpio = <&portb 12 GPIO_ACTIVE_HIGH>;
+    };
+};
+
 &pinctrl {
+	usb3_vbus_pmux: usb3_vbus_pmux {
+		groups = "SDIO_WP";
+		function = "gpio";
+	};
+
 	ir_led_en1_pmux: ir-led-en1-pmux {
 		groups = "STS1_SD";
 		function = "gpio";
@@ -59,7 +75,6 @@
 		function = "gpio";
 	};
 };
-
 
 &mdio0 {
 	phy0: ethernet-phy@0 {
@@ -78,5 +93,12 @@
 	snps,reset-gpio = <&portd 8 GPIO_ACTIVE_HIGH>;
 	snps,reset-delays-us = <0 10000 50000>;
 	snps,reset-active-low;
+};
+
+&xhci0 {
+    status = "okay";
+    vbus-supply = <&usb3_vbus>;
+    pinctrl-0 = <&usb3_vbus_pmux>;
+    pinctrl-names = "default";
 };
 
