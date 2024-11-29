@@ -12,6 +12,8 @@ SRC_URI:append = " \
 	file://${DTS_ADA}.dts \
 	file://${DTS_EVB}.dts \
 	file://${DTSI}.dtsi \
+    file://regulator.cfg \
+    file://0001-Add-sy20257-regulator.patch \
 "
 
 SRC_URI:append:grinn-astra-1680-ada = " \
