@@ -1,0 +1,89 @@
+/* SPDX-License-Identifier: GPL-2.0+ */
+/*
+* Copyright (C) 2016~2023 Synaptics Incorporated. All rights reserved.
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License version 2 or
+* later as published by the Free Software Foundation.
+*
+* INFORMATION CONTAINED IN THIS DOCUMENT IS PROVIDED "AS-IS," AND
+* SYNAPTICS EXPRESSLY DISCLAIMS ALL EXPRESS AND IMPLIED WARRANTIES,
+* INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+* A PARTICULAR PURPOSE, AND ANY WARRANTIES OF NON-INFRINGEMENT OF ANY
+* INTELLECTUAL PROPERTY RIGHTS. IN NO EVENT SHALL SYNAPTICS BE LIABLE
+* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE, OR
+* CONSEQUENTIAL DAMAGES ARISING OUT OF OR IN CONNECTION WITH THE USE
+* OF THE INFORMATION CONTAINED IN THIS DOCUMENT, HOWEVER CAUSED AND
+* BASED ON ANY THEORY OF LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+* NEGLIGENCE OR OTHER TORTIOUS ACTION, AND EVEN IF SYNAPTICS WAS
+* ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. IF A TRIBUNAL OF
+* COMPETENT JURISDICTION DOES NOT PERMIT THE DISCLAIMER OF DIRECT
+* DAMAGES OR ANY OTHER DAMAGES, SYNAPTICS' TOTAL CUMULATIVE LIABILITY
+* TO ANY PARTY SHALL NOT EXCEED ONE HUNDRED U.S. DOLLARS.
+*/
+
+/dts-v1/;
+
+#include "grinn-astra-1680.dtsi"
+
+/ {
+	model = "Grinn Astra 1680 ada";
+	compatible = "syna,dolphin-evk", "syna,dolphin";
+
+	regulators {
+		vmmc_sdhci1: vmmc_sdhci1 {
+			compatible = "regulator-fixed";
+			regulator-min-microvolt = <3300000>;
+			regulator-max-microvolt = <3300000>;
+			regulator-name = "vmmc_sdio";
+			enable-active-high;
+			gpio = <&portb 12 GPIO_ACTIVE_HIGH>;
+		};
+    };
+};
+
+&pinctrl {
+    sdhci1_pmux: sdhci1-pmux {
+        groups = "SDIO_CDn";
+        function = "sdio";
+        drive-strength = <7>;
+    };
+
+    sdhci1_gpio_pmux: sdhci1-gpio-pmux {
+        groups = "SDIO_WP";
+        function = "gpio";
+    };
+};
+
+&mdio0 {
+	phy0: ethernet-phy@0 {
+		reg = <0>;
+		realtek,clkout-disable;
+		realtek,rxc-ssc-enable;
+		realtek,sysclk-ssc-enable;
+	};
+};
+
+&gmac0 {
+	status = "okay";
+	pinctrl-0 = <&gmac0_pmux>, <&gmac_gpio_pmux>;
+	pinctrl-names = "default";
+	phy-handle = <&phy0>;
+	phy-mode = "rgmii-id";
+	snps,reset-gpio = <&portd 8 GPIO_ACTIVE_HIGH>;
+	snps,reset-delays-us = <0 10000 50000>;
+};
+
+&sdhci1 {
+	status = "okay";
+	pinctrl-0 = <&sdhci1_pmux>, <&sdhci1_gpio_pmux>;
+	pinctrl-names = "default";
+	no-sdio;
+	no-mmc;
+	disable-wp;
+	sdclkdl-dc = /bits/ 8 <75>;
+	pad-sp = /bits/ 8 <4>;
+	pad-sn = /bits/ 8 <4>;
+	vmmc-supply = <&vmmc_sdhci1>;
+};
+

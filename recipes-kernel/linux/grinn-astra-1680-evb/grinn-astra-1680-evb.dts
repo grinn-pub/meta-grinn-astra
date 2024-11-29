@@ -27,7 +27,7 @@
 #include "grinn-astra-1680.dtsi"
 
 / {
-	model = "synaptics dolphin rdk";
+	model = "Grinn Astra 1680 evb";
 	compatible = "syna,dolphin-evk", "syna,dolphin";
 
 	leds {
@@ -46,16 +46,16 @@
 			pinctrl-0 = <&ir_led_en2_pmux>;
 		};
 	};
-};
 
-&regulators {
-    usb3_vbus: usb3_vbus {
-        compatible = "regulator-fixed";
-        regulator-min-microvolt = <5000000>;
-        regulator-max-microvolt = <5000000>;
-        regulator-name = "usb3-vbus";
-        enable-active-high;
-        gpio = <&portb 12 GPIO_ACTIVE_HIGH>;
+    regulators {
+        usb3_vbus: usb3_vbus {
+            compatible = "regulator-fixed";
+            regulator-min-microvolt = <5000000>;
+            regulator-max-microvolt = <5000000>;
+            regulator-name = "usb3-vbus";
+            enable-active-high;
+            gpio = <&portb 12 GPIO_ACTIVE_HIGH>;
+        };
     };
 };
 
