@@ -12,16 +12,16 @@ SRC_URI:append = " \
 	file://${DTS_ADA}.dts \
 	file://${DTS_EVB}.dts \
 	file://${DTSI}.dtsi \
-    file://regulator.cfg \
-    file://0001-Add-sy20257-regulator.patch \
+	file://regulator.cfg \
+	file://0001-Add-sy20257-regulator.patch \
 "
 
 SRC_URI:append:grinn-astra-1680-ada = " \
 "
 
 SRC_URI:append:grinn-astra-1680-evb = " \
-    file://enable-led-gpio.cfg \
-    file://eth.cfg \
+	file://enable-led-gpio.cfg \
+	file://eth.cfg \
 "
 
 do_compile:prepend() {
@@ -29,4 +29,3 @@ do_compile:prepend() {
 	cp ${WORKDIR}/${DTS_ADA}.dts ${DT_DIR}/
 	cp ${WORKDIR}/${DTS_EVB}.dts ${DT_DIR}/
 }
-

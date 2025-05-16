@@ -210,7 +210,6 @@
 		function = "uart3";
 		drive-strength = <3>;
 	};
-
 };
 
 &sm_pinctrl {
@@ -270,7 +269,7 @@
 	pwm2_pmux: pwm2-pmux {
 		groups = "I2S1_DO2";
 		function = "pwm";
-        };
+	};
 
 	i2s1_pmux: i2s1-pmux {
 		groups = "I2S1_BCLKIO", "I2S1_LRCKIO", "I2S1_DO0", "I2S1_MCLK";
@@ -399,7 +398,7 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&i2c1_pmux>;
 
-    vcpu: regulator@60 {
+	vcpu: regulator@60 {
 		compatible = "silergy,sy20257n";
 		reg = <0x60>;
 		status = "okay";
@@ -417,7 +416,7 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&i2c2_pmux>;
 
-    vcore: regulator@60 {
+	vcore: regulator@60 {
 		compatible = "silergy,sy20257n";
 		reg = <0x60>;
 		status = "okay";
@@ -495,7 +494,7 @@
 };
 
 &vpp {
-        status = "okay";
+	status = "okay";
 };
 
 &isp_vsi {
@@ -551,7 +550,7 @@
 	 * 			1 - MIPI Only
 	 *			2 - Dual Mode PIP
 	 *
- 	 * Supported types:	0 - HDMI
+	 * Supported types:	0 - HDMI
 	 * 		  	3 - MIPI-DSI
 	 */
 	disp-mode = <2>;
@@ -619,14 +618,14 @@
 		Null_Pkt = <0>;
 		Byte_clk = <84090>;
 
-	/*  COMMAND= Command for initialisation
-	*  Format - <CMD> <Payloadlength-n> <BYTE1> <...> <BYTEn>
-	*  Long write Ex: 39 04 FF 98 81 03
+		/*  COMMAND= Command for initialisation
+		*  Format - <CMD> <Payloadlength-n> <BYTE1> <...> <BYTEn>
+		*  Long write Ex: 39 04 FF 98 81 03
 
-	*  Delay in micro seconds Command format: 0xFF <4BYTE delay>
-	*  Delay for 100ms(100000us => 0x000186A0)
-	*  	- FF A0 86 01 00
-	*/
+		*  Delay in micro seconds Command format: 0xFF <4BYTE delay>
+		*  Delay for 100ms(100000us => 0x000186A0)
+		*  	- FF A0 86 01 00
+		*/
 		command = /bits/ 8 <0x29  0x06 0x10  0x02  0x03  0x00  0x00 0x00
 				0x29  0x06 0x64  0x01  0x0C  0x00  0x00 0x00
 				0x29  0x06 0x68  0x01  0x0C  0x00  0x00 0x00

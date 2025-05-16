@@ -39,20 +39,20 @@
 			enable-active-high;
 			gpio = <&portb 12 GPIO_ACTIVE_HIGH>;
 		};
-    };
+	};
 };
 
 &pinctrl {
-    sdhci1_pmux: sdhci1-pmux {
-        groups = "SDIO_CDn";
-        function = "sdio";
-        drive-strength = <7>;
-    };
+	sdhci1_pmux: sdhci1-pmux {
+		groups = "SDIO_CDn";
+		function = "sdio";
+		drive-strength = <7>;
+	};
 
-    sdhci1_gpio_pmux: sdhci1-gpio-pmux {
-        groups = "SDIO_WP";
-        function = "gpio";
-    };
+	sdhci1_gpio_pmux: sdhci1-gpio-pmux {
+		groups = "SDIO_WP";
+		function = "gpio";
+	};
 };
 
 &mdio0 {
@@ -86,4 +86,3 @@
 	pad-sn = /bits/ 8 <4>;
 	vmmc-supply = <&vmmc_sdhci1>;
 };
-

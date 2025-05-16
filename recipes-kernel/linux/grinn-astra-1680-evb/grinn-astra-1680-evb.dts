@@ -34,29 +34,29 @@
 		compatible = "gpio-leds";
 		status = "okay";
 
-        ir_led_en1: led0 {
+		ir_led_en1: led0 {
 			gpios = <&portb 5 GPIO_ACTIVE_HIGH>;
 			default-state = "off";
 			pinctrl-0 = <&ir_led_en1_pmux>;
 		};
 
-        ir_led_en2: led1 {
+		ir_led_en2: led1 {
 			gpios = <&portb 4 GPIO_ACTIVE_HIGH>;
 			default-state = "off";
 			pinctrl-0 = <&ir_led_en2_pmux>;
 		};
 	};
 
-    regulators {
-        usb3_vbus: usb3_vbus {
-            compatible = "regulator-fixed";
-            regulator-min-microvolt = <5000000>;
-            regulator-max-microvolt = <5000000>;
-            regulator-name = "usb3-vbus";
-            enable-active-high;
-            gpio = <&portb 12 GPIO_ACTIVE_HIGH>;
-        };
-    };
+	regulators {
+		usb3_vbus: usb3_vbus {
+			compatible = "regulator-fixed";
+			regulator-min-microvolt = <5000000>;
+			regulator-max-microvolt = <5000000>;
+			regulator-name = "usb3-vbus";
+			enable-active-high;
+			gpio = <&portb 12 GPIO_ACTIVE_HIGH>;
+		};
+	};
 };
 
 &pinctrl {
@@ -96,9 +96,8 @@
 };
 
 &xhci0 {
-    status = "okay";
-    vbus-supply = <&usb3_vbus>;
-    pinctrl-0 = <&usb3_vbus_pmux>;
-    pinctrl-names = "default";
+	status = "okay";
+	vbus-supply = <&usb3_vbus>;
+	pinctrl-0 = <&usb3_vbus_pmux>;
+	pinctrl-names = "default";
 };
-
