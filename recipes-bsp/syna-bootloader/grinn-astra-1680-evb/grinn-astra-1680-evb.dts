@@ -1,0 +1,103 @@
+/* SPDX-License-Identifier: GPL-2.0+ */
+/*
+* Copyright (C) 2016~2023 Synaptics Incorporated. All rights reserved.
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License version 2 or
+* later as published by the Free Software Foundation.
+*
+* INFORMATION CONTAINED IN THIS DOCUMENT IS PROVIDED "AS-IS," AND
+* SYNAPTICS EXPRESSLY DISCLAIMS ALL EXPRESS AND IMPLIED WARRANTIES,
+* INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+* A PARTICULAR PURPOSE, AND ANY WARRANTIES OF NON-INFRINGEMENT OF ANY
+* INTELLECTUAL PROPERTY RIGHTS. IN NO EVENT SHALL SYNAPTICS BE LIABLE
+* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE, OR
+* CONSEQUENTIAL DAMAGES ARISING OUT OF OR IN CONNECTION WITH THE USE
+* OF THE INFORMATION CONTAINED IN THIS DOCUMENT, HOWEVER CAUSED AND
+* BASED ON ANY THEORY OF LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+* NEGLIGENCE OR OTHER TORTIOUS ACTION, AND EVEN IF SYNAPTICS WAS
+* ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. IF A TRIBUNAL OF
+* COMPETENT JURISDICTION DOES NOT PERMIT THE DISCLAIMER OF DIRECT
+* DAMAGES OR ANY OTHER DAMAGES, SYNAPTICS' TOTAL CUMULATIVE LIABILITY
+* TO ANY PARTY SHALL NOT EXCEED ONE HUNDRED U.S. DOLLARS.
+*/
+
+/dts-v1/;
+
+#include "grinn-astra-1680.dtsi"
+
+/ {
+	model = "Grinn Astra 1680 evb";
+	compatible = "syna,dolphin-evk", "syna,dolphin";
+
+	leds {
+		compatible = "gpio-leds";
+		status = "okay";
+
+		ir_led_en1: led0 {
+			gpios = <&portb 5 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+			pinctrl-0 = <&ir_led_en1_pmux>;
+		};
+
+		ir_led_en2: led1 {
+			gpios = <&portb 4 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+			pinctrl-0 = <&ir_led_en2_pmux>;
+		};
+	};
+
+	regulators {
+		usb3_vbus: usb3_vbus {
+			compatible = "regulator-fixed";
+			regulator-min-microvolt = <5000000>;
+			regulator-max-microvolt = <5000000>;
+			regulator-name = "usb3-vbus";
+			enable-active-high;
+			gpio = <&portb 12 GPIO_ACTIVE_HIGH>;
+		};
+	};
+};
+
+&pinctrl {
+	usb3_vbus_pmux: usb3_vbus_pmux {
+		groups = "SDIO_WP";
+		function = "gpio";
+	};
+
+	ir_led_en1_pmux: ir-led-en1-pmux {
+		groups = "STS1_SD";
+		function = "gpio";
+	};
+
+	ir_led_en2_pmux: ir-led-en2-pmux {
+		groups = "STS1_VALD";
+		function = "gpio";
+	};
+};
+
+&mdio0 {
+	phy0: ethernet-phy@0 {
+		reg = <0>;
+		compatible = "ethernet-phy-ieee802.3-c22";
+		device_type = "ethernet-phy";
+	};
+};
+
+&gmac0 {
+	status = "okay";
+	pinctrl-0 = <&gmac0_pmux>, <&gmac_gpio_pmux>;
+	pinctrl-names = "default";
+	phy-handle = <&phy0>;
+	phy-mode = "rgmii-id";
+	snps,reset-gpio = <&portd 8 GPIO_ACTIVE_HIGH>;
+	snps,reset-delays-us = <0 10000 50000>;
+	snps,reset-active-low;
+};
+
+&xhci0 {
+	status = "okay";
+	vbus-supply = <&usb3_vbus>;
+	pinctrl-0 = <&usb3_vbus_pmux>;
+	pinctrl-names = "default";
+};
