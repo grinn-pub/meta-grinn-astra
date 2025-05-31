@@ -318,13 +318,6 @@
 	clock-frequency = <100000>;
 	no-irq-suspend;
 
-	expander_dummy: gpio_dummy {
-		compatible = "fcs,fxl6408";
-		reg = <0x43>;
-		gpio-controller;
-		#gpio-cells = <2>;
-	};
-
 	rpi_panel_regulator: rpi_panel_regulator@45 {
 		compatible = "raspberrypi,7inch-touchscreen-panel-regulator";
 		reg = <0x45>;
