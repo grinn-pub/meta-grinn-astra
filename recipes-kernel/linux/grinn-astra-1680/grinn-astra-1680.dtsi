@@ -685,12 +685,6 @@
 	pinctrl-names = "default";
 };
 
-&spdif_out {
-	status = "disabled";
-	pinctrl-0 = <&spdifo_pmux>;
-	pinctrl-names = "default";
-};
-
 &i2s_mic1 {
 	status = "okay";
 	pinctrl-0 = <&i2s2_pmux>;
@@ -733,15 +727,6 @@
 
 &hdmi_in {
 	status = "okay";
-};
-
-&dolphin_spdifi {
-	status = "disabled";
-	//pinctrl-0 = <&spdifi_pmux>;
-	//pinctrl-names = "default";
-	//gate-gpio = <&expander2 4 GPIO_ACTIVE_HIGH>;
-	//enable-gpio = <&expander3 7 GPIO_ACTIVE_LOW>;
-	dynamic-src-ctrl;
 };
 
 &dolphin_pcm {
