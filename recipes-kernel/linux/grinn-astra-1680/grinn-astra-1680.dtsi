@@ -156,12 +156,6 @@
 				#gpio-cells = <2>;
 				reset-gpios = <&expander1 4 GPIO_ACTIVE_LOW>;
 			};
-
-			rtc0: rtc@68 {
-				compatible = "dallas,ds1339";
-				wakeup-source;
-				reg = <0x68>;
-			};
 		};
 
 		i2c@1 {
