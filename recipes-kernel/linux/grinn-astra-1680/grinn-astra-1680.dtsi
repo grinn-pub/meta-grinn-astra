@@ -162,16 +162,6 @@
 				wakeup-source;
 				reg = <0x68>;
 			};
-
-			ina220@40 {
-				compatible = "ti,ina220";
-				reg = <0x40>;
-			};
-
-			ina220@41 {
-				compatible = "ti,ina220";
-				reg = <0x41>;
-			};
 		};
 
 		i2c@1 {
