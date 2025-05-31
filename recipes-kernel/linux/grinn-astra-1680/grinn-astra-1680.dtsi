@@ -148,14 +148,6 @@
 				gpio-controller;
 				#gpio-cells = <2>;
 			};
-
-			expander2: gpio@49 {
-				compatible = "ti,pca9536";
-				reg = <0x49>;
-				gpio-controller;
-				#gpio-cells = <2>;
-				reset-gpios = <&expander1 4 GPIO_ACTIVE_LOW>;
-			};
 		};
 
 		i2c@1 {
@@ -432,8 +424,6 @@
 
 &isp_vsi {
 	status = "okay";
-	enable-gpio = <&expander2 1 GPIO_ACTIVE_HIGH>;
-	reset-gpio = <&expander2 0 GPIO_ACTIVE_HIGH>;
 };
 
 &isp_vsi_video {
