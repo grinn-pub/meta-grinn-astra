@@ -14,11 +14,14 @@ THIS_SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 show_usage() {
 	echo ""
 	echo "Usage:"
-	echo "	${0} <usb_tool_root_path> <machine_selector>"
+	echo "	${0} <usb_tool_root_path> <machine_selector> [image_path]"
 	echo ""
 	echo "machine_selector:"
 	echo "	ada	grinn-astra-1680-ada"
 	echo "	evb	grinn-astra-1680-evb"
+	echo ""
+	echo "image_path:"
+	echo "	optional path to pre-built image"
 }
 
 if [ -z ${1} ] || [ -z ${2} ]; then
@@ -48,11 +51,15 @@ case "${2}" in
 		;;
 esac
 
-IMAGE_PATH="${THIS_SCRIPT_DIR}/../../../build/tmp/deploy/images/${MACHINE_NAME}/SYNAIMG/"
+if [ -z ${3} ]; then
+	IMAGE_PATH="${THIS_SCRIPT_DIR}/../../../build/tmp/deploy/images/${MACHINE_NAME}/SYNAIMG/"
 
-if [ ! -d ${IMAGE_PATH} ]; then
-	echo "Image for ${MACHINE_NAME} is not built!"
-	exit 1
+	if [ ! -d ${IMAGE_PATH} ]; then
+		echo "Image for ${MACHINE_NAME} is not built!"
+		exit 1
+	fi
+else
+    IMAGE_PATH=${3}
 fi
 
 sudo ${FLASH_TOOL} -B ${BOOT_IMAGE_COLLECTION} -M ${BOOT_IMAGE}/manifest.yaml --flash ${IMAGE_PATH}
