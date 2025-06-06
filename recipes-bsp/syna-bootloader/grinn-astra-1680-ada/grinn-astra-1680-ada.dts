@@ -28,7 +28,7 @@
 #include "include/dt-bindings/gpio/gpio.h"
 
 / {
-	model = "Grinn Astra 1690 ada";
+	model = "Grinn Astra 1680 ada";
 	compatible = "Synaptics,dolphin", "Synaptics,asserial";
 
 	memory {
